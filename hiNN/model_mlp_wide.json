@@ -1,0 +1,49 @@
+{
+	"hyper_params": {
+		"lr": 0.01,
+		"lr_decay": 0.9999,
+		"optimizer": "momentum", // sgd/momentum/rmsprop/adagrad
+		"momentum_rms_value": 0.95, // momentum中的动量超参和rmsprop的衰减系数
+		"regularization": 0, // 正则化系数
+		"epoch_num": 200,
+		"use_batch": true,
+		"batch_size": 128,
+		"update_acc_epoches": 20, // 每隔多少个epoch测试一次准确率
+		"lr_update": true,
+		"snapshot": false,
+		"snapshot_interval": 5,
+		"fine_tune": false,
+		"pre_train_model_path": "./iter5.saved_model" // 事先保存的预训练模型
+	},
+
+	"net_structure": [
+		{
+			"name": "fc1",
+			"type": "FC",
+			"neuron_num": 512,
+			"init_method": "Gaussian"
+		},
+		{
+			"name": "relu1",
+			"type": "ReLU"
+		},
+		{
+			"name":"bn1",
+			"type" : "BN"
+		},
+		{
+			"name":"sc1",
+			"type" : "Scale"
+		},
+		{
+			"name": "fc2",
+			"type": "FC",
+			"neuron_num": 10,
+			"init_method": "Gaussian"
+		},
+		{
+			"name": "ce",
+			"type": "Cross Entropy"
+		}
+	]
+}

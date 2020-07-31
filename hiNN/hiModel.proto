@@ -1,0 +1,25 @@
+// protoc -I=xxx --cpp_out=xxx xxx.proto
+
+syntax="proto2";
+
+package hi;    // 编译后对应到生成的C++文件中的命名空间
+
+message Snapshot {
+	// 相当于嵌套类
+	message Block {
+		// 数字为序号
+		required string layer_name = 1; 
+		required string param_type = 2;      
+		required int32 kernel_n = 3;          
+		required int32 kernel_c = 4;   
+		required int32 kernel_h = 5; 				
+		required int32 kernel_w = 6;
+		
+		message Params {
+			required double value = 1;    
+		}
+		repeated Params params = 7;
+	}
+	// repeated可以动态分配内存，存放多个相同类型
+    repeated Block block = 1;
+}

@@ -1,0 +1,60 @@
+{
+	"hyper_params": {
+		"lr": 0.001,
+		"lr_decay": 0.999,
+		"optimizer": "rmsprop", // sgd/momentum/rmsprop/adagrad
+		"momentum_rms_value": 0.95, // momentum中的动量超参和rmsprop的衰减系数
+		"regularization": 0, // 正则化系数
+		"epoch_num": 100,
+		"use_batch": true,
+		"batch_size": 128,
+		"update_acc_epoches": 20, // 每隔多少个epoch测试一次准确率
+		"lr_update": true,
+		"snapshot": false,
+		"snapshot_interval": 5,
+		"fine_tune": false,
+		"pre_train_model_path": "./iter5.saved_model" // 事先保存的预训练模型
+	},
+
+	"net_structure": [
+		{
+			"name": "conv1",
+			"type": "Conv",
+			"kernel_num": 4,
+			"kernel_width": 5,
+			"kernel_height": 5,
+			"pad": 1,
+			"stride": 1, // 滑动步长
+			"init_method": "Gaussian" // Gaussian/He/Xavier 
+		},
+		{
+			"name":"bn1",
+			"type": "BN"
+		},
+		{
+			"name":"sc1",
+			"type": "Scale"
+		},
+		{
+			"name":"relu1",
+			"type":"ReLU"
+		},
+		{
+			"name": "pool1",
+			"type": "Pool",
+			"kernel_width": 2,
+			"kernel_height": 2,
+			"stride": 1
+		},
+		{
+			"name": "fc1",
+			"type": "FC",
+			"neuron_num": 10,
+			"init_method": "Gaussian"
+		},
+		{
+			"name": "ce",
+			"type": "Cross Entropy"
+		}
+	]
+}
